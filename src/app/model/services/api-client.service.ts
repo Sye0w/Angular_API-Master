@@ -18,6 +18,7 @@ export class ApiClientService {
     private cachingService: CachingService
   ) { }
 
+
   fetchPosts(): Observable<IPost[]>{
     const cacheKey = 'posts';
     const cachedPosts = this.cachingService.get(cacheKey);
@@ -68,5 +69,4 @@ export class ApiClientService {
       catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
     );
   }
-
 }
