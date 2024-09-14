@@ -20,6 +20,6 @@ export class ApiFacadeService {
         console.log(posts);
         this.postsSubject.next(posts)
       })
-    );
+    ).subscribe()
   }
 }
