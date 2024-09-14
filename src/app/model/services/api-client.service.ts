@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/env';
-import { catchError, Observable, retry } from 'rxjs';
+import { catchError, Observable, of, retry } from 'rxjs';
 import { IPost } from '../post.interface';
 import { IComment } from '../comment.interface';
 import { ErrorHandlingService } from './error-handling.service';
@@ -14,11 +14,18 @@ export class ApiClientService {
   private apiUrl = environment.apiUrl
 
   constructor(private http: HttpClient,
-    private cachingService: CachingService,
-    private errorHandler: ErrorHandlingService
+    private errorHandler: ErrorHandlingService,
+    private cachingService: CachingService
   ) { }
 
   fetchPosts(): Observable<IPost[]>{
+    const cacheKey = 'posts';
+    const cachedPosts = this.cachingService.get(cacheKey);
+
+    if(cachedPosts){
+      return of(cachedPosts);
+    }
+
     return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
       retry(3),
       catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
