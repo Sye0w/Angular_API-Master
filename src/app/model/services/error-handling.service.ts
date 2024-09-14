@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar} from '@angular/material/snack-bar';
 import { throwError } from 'rxjs';
 
 @Injectable({
@@ -12,14 +12,20 @@ export class ErrorHandlingService {
   constructor(private snackBar: MatSnackBar) { }
 
   handleError(error: HttpErrorResponse){
-    let errorMessage = error.error.message;
+    let errorMessage = 'An unknown error occurred!';
 
-    this.snackBar.open(errorMessage, 'Close',{
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else {
+      errorMessage = `Server-side error: ${error.status} ${error.message}`;
+    }
+
+    this.snackBar.open(errorMessage, 'Close', {
       duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
-    })
+    });
 
-    return throwError(() => new Error (errorMessage));
+    return throwError(errorMessage);
   }
 }
