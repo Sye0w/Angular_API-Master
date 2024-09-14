@@ -4,6 +4,7 @@ import { environment } from '../../../environments/env';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { IPost } from '../post.interface';
 import { IComment } from '../comment.interface';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,16 @@ import { IComment } from '../comment.interface';
 export class ApiClientService {
   private apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private errorHandler: ErrorHandlingService
+  ) { }
 
   fetchPost(): Observable<IPost[]>{
     return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
       retry(3),
-      catchError(this.handleError)
+      catchError((error: HttpErrorResponse) => {
+        this.errorHandler.handleError(error)
+      })
     );
   }
 
@@ -24,13 +29,11 @@ export class ApiClientService {
     return this.http.get<IComment[]>(`${this.apiUrl}/comments`)
     .pipe(
       retry(3),
-      catchError(this.handleError)
+      catchError((error: HttpErrorResponse) => {
+        this.errorHandler.handleError(error)
+      })
     )
   }
 
-  private handleError(error: HttpErrorResponse){
-    console.log('An error occurred:', error.message);
-    return throwError('Something went wrong; please try again');
 
-  }
 }
