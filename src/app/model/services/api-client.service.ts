@@ -19,9 +19,7 @@ export class ApiClientService {
   fetchPost(): Observable<IPost[]>{
     return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
       retry(3),
-      catchError((error: HttpErrorResponse) => {
-        this.errorHandler.handleError(error)
-      })
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
     );
   }
 
@@ -29,9 +27,7 @@ export class ApiClientService {
     return this.http.get<IComment[]>(`${this.apiUrl}/comments`)
     .pipe(
       retry(3),
-      catchError((error: HttpErrorResponse) => {
-        this.errorHandler.handleError(error)
-      })
+      catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
     )
   }
 
