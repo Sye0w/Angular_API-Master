@@ -23,14 +23,17 @@ export class ApiClientService {
   ) { }
 
 
-  fetchPosts(): Observable<any[]> {
-    return this.cachingService.get('posts').pipe(
+  fetchPosts(afterId: number = 0): Observable<IPost[]> {
+    const cacheKey = `posts-after-${afterId}`;
+    return this.cachingService.get(cacheKey).pipe(
       switchMap(cachedPosts => {
         if (cachedPosts) {
           return of(cachedPosts);
         } else {
-          return this.http.get<any[]>(`${this.apiUrl}/posts`).pipe(
-            tap(posts => this.cachingService.set('posts', posts, this.cacheTTL).subscribe()),
+          return this.http.get<IPost[]>(`${this.apiUrl}/posts`, {
+            params: { id_gt: afterId.toString() }
+          }).pipe(
+            tap(posts => this.cachingService.set(cacheKey, posts, this.cacheTTL).subscribe()),
             catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
           );
         }

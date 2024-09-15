@@ -1,15 +1,18 @@
 <section>
   <ul>
-    @if(posts$ | async; as posts){
-      @for(post of posts; track post;){
+    @if(posts$ | async; as posts) {
+      @for(post of posts; track post.id) {
         <li appRevealOnScroll>
-          <h1>{{ post.title  }}</h1>
-          <p>{{ post.body  }}</p>
+          <h1>{{ post.title }}</h1>
+          <p>{{ post.body }}</p>
         </li>
       }
-    } @else{
-      
+      <li appInfiniteScroll (scrolled)="loadMorePosts()"></li>
+    } @else {
+      <li>Loading posts...</li>
     }
   </ul>
+  @if(loading$ | async) {
+    <div class="loading">Loading more posts...</div>
+  }
 </section>
-
