@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, map, switchMap } from 'rxjs';
 import { IPost } from '../post.interface';
 import { ApiClientService } from './api-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiFacadeService {
   private postsSubject = new BehaviorSubject<IPost[]>([]);
   posts$ = this.postsSubject.asObservable();
@@ -21,6 +22,29 @@ export class ApiFacadeService {
           this.postsSubject.next(updatedPosts);
           this.lastFetchedId = updatedPosts[updatedPosts.length - 1].id;
         }
+      })
+    );
+  }
+
+  createPost(newPost: Partial<IPost>): Observable<IPost> {
+    return this.posts$.pipe(
+      switchMap(posts => {
+        const latestPost = posts.length > 0 ? posts[posts.length - 1] : null;
+        const newId = latestPost ? latestPost.id + 1 : 1;
+        const newUserId = latestPost ? latestPost.userId : 1;
+
+        const fullPost: IPost = {
+          id: newId,
+          userId: newUserId,
+          ...newPost
+        } as IPost;
+
+        return this.apiService.createPost(fullPost);
+      }),
+      tap(createdPost => {
+        const updatedPosts = [...this.postsSubject.value, createdPost];
+        this.postsSubject.next(updatedPosts);
+        this.lastFetchedId = createdPost.id;
       })
     );
   }

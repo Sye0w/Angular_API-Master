@@ -1,0 +1,106 @@
+button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: fixed;
+  right: 10%;
+  left: 85%;
+  border-style: none;
+  padding: 0.87rem;
+  height: 3rem;
+  width: 3rem;
+  align-self: flex-end;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  font-size: 1.125rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken(#5CA5A5, 10%);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    color: #fff;
+  }
+}
+
+:host ::ng-deep {
+  .p-dialog {
+    width: 35vw;
+
+    .p-dialog-header {
+      padding: 1.5rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .p-dialog-content {
+      padding: 2rem;
+
+      .flex {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        label {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        input, textarea {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #ced4da;
+          border-radius: 4px;
+
+          &:focus {
+            outline: none;
+            border-color: #5CA5A5;
+            box-shadow: 0 0 0 2px rgba(92, 165, 165, 0.25);
+          }
+        }
+      }
+    }
+
+    .p-dialog-footer {
+      text-align: right;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid #e9ecef;
+
+      .p-button {
+        margin-left: 0.5rem;
+
+        &.p-button-text {
+          color: #6c757d;
+
+          &:hover {
+            background-color: #e9ecef;
+          }
+        }
+      }
+    }
+  }
+
+  .p-inputtext.ng-dirty.ng-invalid {
+    border-color: #FF6B6B;
+  }
+
+  .p-error {
+    color: #FF6B6B;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .p-toast {
+    // position: absolute;
+    .p-toast-message-success {
+      background-color: #4caf50;
+      border-color: #4caf50;
+      color: #ffffff;
+      // opacity: .8;
+    }
+  }
+}
