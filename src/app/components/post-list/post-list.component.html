@@ -3,7 +3,7 @@
     @if(posts$ | async; as posts){
       <p>posts-page works!</p>
       @for(post of posts; track post;){
-        <li>
+        <li appRevealOnScroll>
           <h1>{{ post.title  }}</h1>
           <p>{{ post.body  }}</p>
         </li>

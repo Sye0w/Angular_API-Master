@@ -11,23 +11,28 @@ section{
     flex-direction: column;
     gap: 2.5rem;
 
-    li{
+    li {
       background-color: #fff;
       list-style-type: none;
       border-left: 3.5px solid $border-color;
       padding-left: 1rem;
-      transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.8s ease-out, transform 1s ease-out, all 0.3s ease;
+      transform: translateY(50px);
 
-      &:hover{
+      &:hover {
         border-left-color: darken($border-color, 17%);
-        transform: translateX(10px);
+        transform: translateX(10px) !important;
         background-color: lighten($bg-color, 22%);
         padding-left: 1.5rem;
       }
 
-
+      &.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }

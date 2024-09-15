@@ -3,7 +3,6 @@
 
 section {
   display: flex;
-
   header{
     top: 0;
     position: fixed ;
@@ -12,6 +11,8 @@ section {
     background-repeat: no-repeat;
     height: 7.75rem;
     width: 100%;
+    z-index: 3;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
     h1{
       text-align: center;
