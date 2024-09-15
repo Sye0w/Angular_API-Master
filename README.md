@@ -1,27 +1,80 @@
-# AngularAPiMaster
+# Angular API Master
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+## Project Description
 
-## Development server
+Angular API Master is a comprehensive Angular application that demonstrates proficiency in working with APIs, including data fetching, error handling, authentication, optimization, and environment configuration. This project is built using Angular v17.3.9 and showcases best practices for building scalable and efficient web applications.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Key Features
 
-## Code scaffolding
+- Interaction with JSONPlaceholder API for CRUD operations on posts and comments
+- Efficient error handling and user-friendly error messages
+- Mock authentication using HTTP interceptors
+- Pagination for listing posts (optional)
+- Simple caching mechanism for optimizing API requests
+- Environment-specific configurations
+- Lazy loading for optimized performance
+- Unit testing for services and components
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Project Structure
 
-## Build
+The project follows a modular structure with the following key directories:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `src/app/components`: Contains all the Angular components
+- `src/app/services`: Houses the API, error handling, and caching services
+- `src/app/interceptors`: Contains the authentication interceptor
+- `src/environments`: Includes environment-specific configuration files
 
-## Running unit tests
+## Setup and Run Instructions
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Ensure you have Node.js (v14 or later) and npm installed on your machine.
+2. Clone the repository:
+   ```
+   git clone https://github.com/Sye0w/Angular_API-Master.git
+   cd angular_api-master
+   ```
+3. Install the dependencies:
+   ```
+   npm install
+   ```
+4. Run the development server:
+   ```
+   ng serve
+   ```
+5. Open your browser and navigate to `http://localhost:4200`
 
-## Running end-to-end tests
+## Available npm Scripts
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- `npm start`: Starts the development server
+- `npm run build`: Builds the project for production
+- `npm test`: Runs unit tests using Jest
+- `npm run e2e`: Runs end-to-end tests (requires additional setup)
 
-## Further help
+## Environment Configuration
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The project includes environment-specific configuration files:
+
+- `src/environments/env.ts`: Default environment (development)
+- `src/environments/env.staging.ts`: Development-specific settings
+- `src/environments/env.prod.ts`: Production-specific settings
+
+To run the application with a specific environment:
+
+```
+ng serve --configuration=production
+```
+
+## Testing
+
+Unit tests are written using Jasmine and Karma. Run the tests using:
+
+```
+npm  test
+```
+
+## Bonus Features (To Be Implemented)
+
+- Infinite scrolling for post listing
+- End-to-end tests using Cypress
+- Advanced caching strategy using IndexedDB
+
+
