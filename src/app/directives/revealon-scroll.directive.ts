@@ -17,7 +17,7 @@ export class RevealOnScrollDirective implements AfterViewInit {
           this.renderer.removeClass(this.el.nativeElement, 'revealed');
         }
       });
-    }, { threshold: 0.9 ,  });
+    }, { threshold: 0.7 ,  });
 
     observer.observe(this.el.nativeElement);
   }
