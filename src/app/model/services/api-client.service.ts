@@ -5,7 +5,8 @@ import { catchError, Observable, of, retry, switchMap } from 'rxjs';
 import { IPost } from '../post.interface';
 import { IComment } from '../comment.interface';
 import { ErrorHandlingService } from './error-handling.service';
-import { IndexedDBCacheService } from './indexdb-cache.service';
+import { IndexedDBCachingService } from './indexdb-caching.service';
+
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ApiClientService {
 
   constructor(private http: HttpClient,
     private errorHandler: ErrorHandlingService,
-    private cachingService: IndexedDBCacheService
+    private cachingService: IndexedDBCachingService
   ) { }
 
 

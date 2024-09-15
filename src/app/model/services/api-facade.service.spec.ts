@@ -3,9 +3,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiFacadeService } from './api-facade.service';
 import { ApiClientService } from './api-client.service';
 import { ErrorHandlingService } from './error-handling.service';
-import { CachingService } from './caching.service';
+
 import { of } from 'rxjs';
-import { IPost } from '../post.interface'; 
+import { IPost } from '../post.interface';
+import { IndexedDBCachingService } from './indexdb-caching.service';
 
 describe('ApiFacadeService', () => {
   let service: ApiFacadeService;
@@ -22,7 +23,7 @@ describe('ApiFacadeService', () => {
         ApiFacadeService,
         { provide: ApiClientService, useValue: apiClientServiceMock },
         ErrorHandlingService,
-        CachingService
+        IndexedDBCachingService
       ]
     });
 

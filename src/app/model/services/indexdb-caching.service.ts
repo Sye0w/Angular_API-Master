@@ -5,7 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class IndexedDBCacheService {
+export class IndexedDBCachingService {
   private dbName = 'ApiCache';
   private storeName = 'cache';
   private dbVersion = 1;

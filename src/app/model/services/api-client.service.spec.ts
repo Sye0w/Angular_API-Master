@@ -2,15 +2,15 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ApiClientService } from './api-client.service';
 import { ErrorHandlingService } from './error-handling.service';
-import { CachingService } from './caching.service';
 import { environment } from '../../../environments/env';
-
+import { IndexedDBCachingService } from './indexdb-caching.service';
+import { of } from 'rxjs';
 
 describe('ApiClientService', () => {
   let service: ApiClientService;
   let httpMock: HttpTestingController;
   let errorHandlerMock: jest.Mocked<ErrorHandlingService>;
-  let cachingServiceMock: jest.Mocked<CachingService>;
+  let cachingServiceMock: jest.Mocked<IndexedDBCachingService>;
 
   beforeEach(() => {
     errorHandlerMock = {
@@ -19,15 +19,16 @@ describe('ApiClientService', () => {
 
     cachingServiceMock = {
       get: jest.fn(),
-      set: jest.fn()
-    } as unknown as jest.Mocked<CachingService>;
+      set: jest.fn(() => of(undefined)),
+      clear: jest.fn(() => of(undefined))
+    } as unknown as jest.Mocked<IndexedDBCachingService>;
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         ApiClientService,
         { provide: ErrorHandlingService, useValue: errorHandlerMock },
-        { provide: CachingService, useValue: cachingServiceMock }
+        { provide: IndexedDBCachingService, useValue: cachingServiceMock }
       ]
     });
 
@@ -46,7 +47,7 @@ describe('ApiClientService', () => {
   describe('fetchPosts', () => {
     it('should return cached posts if available', (done) => {
       const cachedPosts = [{ id: 1, title: 'Test Post' }];
-      cachingServiceMock.get.mockReturnValue(cachedPosts);
+      cachingServiceMock.get.mockReturnValue(of(cachedPosts));
 
       service.fetchPosts().subscribe(posts => {
         expect(posts).toEqual(cachedPosts);
@@ -57,10 +58,11 @@ describe('ApiClientService', () => {
 
     it('should fetch posts from API if not cached', (done) => {
       const mockPosts = [{ id: 1, title: 'Test Post' }];
-      cachingServiceMock.get.mockReturnValue(null);
+      cachingServiceMock.get.mockReturnValue(of(null));
 
       service.fetchPosts().subscribe(posts => {
         expect(posts).toEqual(mockPosts);
+        expect(cachingServiceMock.set).toHaveBeenCalledWith('posts', mockPosts, expect.any(Number));
         done();
       });
 
@@ -74,15 +76,29 @@ describe('ApiClientService', () => {
     it('should fetch a post by id', (done) => {
       const mockPost = { id: 1, title: 'Test Post' };
       const postId = 1;
+      cachingServiceMock.get.mockReturnValue(of(null));
 
       service.fetchPostById(postId).subscribe(post => {
         expect(post).toEqual(mockPost);
+        expect(cachingServiceMock.set).toHaveBeenCalledWith(`post-${postId}`, mockPost, expect.any(Number));
         done();
       });
 
       const req = httpMock.expectOne(`${environment.apiUrl}/posts/${postId}`);
       expect(req.request.method).toBe('GET');
       req.flush(mockPost);
+    });
+
+    it('should return cached post if available', (done) => {
+      const mockPost = { id: 1, title: 'Test Post' };
+      const postId = 1;
+      cachingServiceMock.get.mockReturnValue(of(mockPost));
+
+      service.fetchPostById(postId).subscribe(post => {
+        expect(post).toEqual(mockPost);
+        expect(cachingServiceMock.get).toHaveBeenCalledWith(`post-${postId}`);
+        done();
+      });
     });
   });
 
@@ -150,4 +166,13 @@ describe('ApiClientService', () => {
       req.flush(null);
     });
   });
+
+  // describe('clearCache', () => {
+  //   it('should clear the cache', (done) => {
+  //     service.clearCache().subscribe(() => {
+  //       expect(cachingServiceMock.clear).toHaveBeenCalled();
+  //       done();
+  //     });
+  //   });
+  // });
 });
