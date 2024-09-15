@@ -1,6 +1,3 @@
-@if(posts$ | async; as posts){
-  <p>posts-page works!</p>
-  @for(post of posts; track post;){
-    <h1>{{ post.title  }}</h1>
-  }
-}
+<section>
+  <app-post-list/>
+</section>

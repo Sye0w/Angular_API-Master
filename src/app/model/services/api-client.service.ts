@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/env';
-import { catchError, Observable, of, retry, switchMap } from 'rxjs';
+import { catchError, Observable, of, retry, switchMap, tap } from 'rxjs';
 import { IPost } from '../post.interface';
 import { IComment } from '../comment.interface';
 import { ErrorHandlingService } from './error-handling.service';
@@ -23,18 +23,19 @@ export class ApiClientService {
   ) { }
 
 
-  fetchPosts(): Observable<IPost[]>{
+  fetchPosts(): Observable<any[]> {
     return this.cachingService.get('posts').pipe(
-      switchMap(cachedData => {
-        if (cachedData) {
-          return of(cachedData);
+      switchMap(cachedPosts => {
+        if (cachedPosts) {
+          return of(cachedPosts);
+        } else {
+          return this.http.get<any[]>(`${this.apiUrl}/posts`).pipe(
+            tap(posts => this.cachingService.set('posts', posts, this.cacheTTL).subscribe()),
+            catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
+          );
         }
-        return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
-          retry(3),
-          catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
-        )
       })
-    )
+    );
   }
 
   fetchPostById(postId: number): Observable<any>{

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,20 +42,24 @@ export class IndexedDBCachingService {
 
   get(key: string): Observable<any> {
     return from(this.openDatabase()).pipe(
-      map(db => {
-        return new Promise((resolve, reject) => {
+      switchMap(db => {
+        return new Observable(observer => {
           const transaction = db.transaction(this.storeName, 'readonly');
           const store = transaction.objectStore(this.storeName);
           const request = store.get(key);
 
-          request.onerror = () => reject(request.error);
+          request.onerror = () => {
+            observer.error(request.error);
+          };
+
           request.onsuccess = () => {
             const data = request.result;
             if (data && data.expiry > Date.now()) {
-              resolve(data.value);
+              observer.next(data.value);
             } else {
-              resolve(null);
+              observer.next(null);
             }
+            observer.complete();
           };
 
           db.close();
