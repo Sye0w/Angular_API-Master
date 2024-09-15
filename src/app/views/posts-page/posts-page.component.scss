@@ -38,3 +38,19 @@ section {
   }
 
 }
+
+@media (max-width: 768px) {
+  section {
+    div{
+      width: 80%;
+
+      button{
+        height: 2.5rem;
+        width: 2.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        opacity: .8;
+      }
+    }
+  }
+}
