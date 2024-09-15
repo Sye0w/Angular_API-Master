@@ -2,9 +2,7 @@
 @use './styles/_variables' as *;
 @include mat.core();
 
-*{
-  width: 100%;
-}
+
 
 html, body {
   height: 100%;
