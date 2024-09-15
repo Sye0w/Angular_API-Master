@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CachingService {
   private cache: { [key: string]: { data: any; timestamp: number } } = {};
   private cacheDuration = 5 * 60 * 1000;
