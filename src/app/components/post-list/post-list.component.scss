@@ -1,0 +1,33 @@
+@use '../../../styles/_variables' as *;
+
+section{
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+
+  ul{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    li{
+      background-color: #fff;
+      list-style-type: none;
+      border-left: 3.5px solid $border-color;
+      padding-left: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+      &:hover{
+        border-left-color: darken($border-color, 17%);
+        transform: translateX(10px);
+        background-color: lighten($bg-color, 22%);
+        padding-left: 1.5rem;
+      }
+
+
+    }
+  }
+}

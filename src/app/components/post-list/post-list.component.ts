@@ -18,7 +18,6 @@ export class PostListComponent {
 
   ngOnInit():void{
     this.apiFacade.fetchPosts()
-
     this.posts$ = this.apiFacade.posts$;
   }
 }
