@@ -9,10 +9,12 @@ Angular API Master is a comprehensive Angular application that demonstrates prof
 - Interaction with JSONPlaceholder API for CRUD operations on posts and comments
 - Efficient error handling and user-friendly error messages
 - Mock authentication using HTTP interceptors
+- Inifinites scrolling to enhance user experience
 - Pagination for listing posts (optional)
 - Simple caching mechanism for optimizing API requests
 - Environment-specific configurations
 - Lazy loading for optimized performance
+- Advanced caching strategy using IndexedDB
 - Unit testing for services and components
 
 ## Project Structure
@@ -71,10 +73,7 @@ Unit tests are written using Jasmine and Karma. Run the tests using:
 npm  test
 ```
 
-## Bonus Features (To Be Implemented)
 
-- Infinite scrolling for post listing
-- End-to-end tests using Cypress
-- Advanced caching strategy using IndexedDB
+ 
 
 
