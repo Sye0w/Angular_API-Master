@@ -51,4 +51,13 @@ export class ApiFacadeService {
       })
     );
   }
+
+  deletePost(postId: number): Observable<any> {
+    return this.apiService.deletePost(postId).pipe(
+      tap(() => {
+        const updatedPosts = this.postsSubject.value.filter(post => post.id !== postId);
+        this.postsSubject.next(updatedPosts);
+      })
+    );
+  }
 }

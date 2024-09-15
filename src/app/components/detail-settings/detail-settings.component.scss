@@ -22,3 +22,26 @@
     align-self: flex-end;
   }
 }
+
+
+:host ::ng-deep {
+  .p-dialog {
+    .p-dialog-header {
+      background-color: #FF6B6B;
+      color: #ffffff;
+    }
+
+    .p-dialog-content {
+      padding: 2rem;
+    }
+
+    .p-dialog-footer {
+      padding: 1rem 1.5rem;
+      text-align: right;
+
+      button {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

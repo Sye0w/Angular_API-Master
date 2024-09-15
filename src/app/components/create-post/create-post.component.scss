@@ -2,26 +2,11 @@
 @use '../../../styles/_variables' as *;
 
 button{
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  @include button-styles(#fff, #000, $border-color, #fff);
+  align-self: flex-end;
   position: fixed;
-  // top: $top;
   right: 10%;
   left: 85%;
-  border-style: none;
-  padding: 0.87rem;
-  height: 3rem;
-  width: 3rem;
-  align-self: flex-end;
-  border-radius: 0.625rem;
-  cursor: pointer;
-  font-weight: 500;
-  background-color: #fff;
-  color: #000;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-  font-size: 1.125rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 
   &:hover {
     background-color: darken($border-color, 10%);
@@ -33,7 +18,7 @@ button{
 
 :host ::ng-deep {
   .p-dialog {
-    width: 35vw;
+    width: 40vw;
 
     .p-dialog-header {
       padding: 1.5rem;
