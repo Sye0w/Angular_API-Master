@@ -1,0 +1,24 @@
+@use '../../../styles/_mixins' as *;
+@use '../../../styles/_variables' as *;
+
+.detail-settings {
+  display: flex;
+  flex-direction: column;
+
+  #delete-btn{
+    @include button-styles(#fff, #000, $border-color, #fff);
+    position: fixed;
+    right: 10%;
+    left: 85%;
+    top: 29%;
+    align-self: flex-end;
+  }
+
+  #edit-btn{
+    @include button-styles(#fff, #000, $border-color, #fff); // Reusable button styling
+    position: fixed;
+    right: 10%;
+    left: 85%;
+    align-self: flex-end;
+  }
+}

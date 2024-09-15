@@ -1,12 +1,15 @@
 <section>
   <div>
     @if(post$ | async; as post){
-      <h1>{{ post.title }}</h1>
-      <p>{{ post.body }}</p>
+      <div class="detail-div">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.body }}</p>
+      </div>
     } @else {
       <div>
         <p>Loading post details...</p>
       </div>
     }
+    <app-detail-settings/>
   </div>
 </section>

@@ -1,0 +1,31 @@
+@mixin button-styles($bg-color, $text-color, $hover-bg-color, $hover-text-color) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: none;
+  padding: 0.87rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: $bg-color;
+  color: $text-color;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+  font-size: 1.125rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($hover-bg-color, 10%);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    color: $hover-text-color;
+  }
+}
+
+
+@mixin button-spacing($gap: 1rem) {
+  display: flex;
+  gap: $gap;
+  flex-direction: column;
+}

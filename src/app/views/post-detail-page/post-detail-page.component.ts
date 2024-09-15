@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { ApiFacadeService } from '../../model/services/api-facade.service';
 import { IPost } from '../../model/post.interface';
+import { DetailSettingsComponent } from "../../components/detail-settings/detail-settings.component";
 
 @Component({
   selector: 'app-post-detail-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DetailSettingsComponent],
   templateUrl: './post-detail-page.component.html',
   styleUrl: './post-detail-page.component.scss'
 })
