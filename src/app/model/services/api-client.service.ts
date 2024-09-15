@@ -1,45 +1,55 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/env';
-import { catchError, Observable, of, retry } from 'rxjs';
+import { catchError, Observable, of, retry, switchMap } from 'rxjs';
 import { IPost } from '../post.interface';
 import { IComment } from '../comment.interface';
-import { CachingService } from './caching.service';
 import { ErrorHandlingService } from './error-handling.service';
+import { IndexedDBCacheService } from './indexdb-cache.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiClientService {
   private apiUrl = environment.apiUrl
+  private cacheTTL = 300;
 
   constructor(private http: HttpClient,
     private errorHandler: ErrorHandlingService,
-    private cachingService: CachingService
+    private cachingService: IndexedDBCacheService
   ) { }
 
 
   fetchPosts(): Observable<IPost[]>{
-    const cacheKey = 'posts';
-    const cachedPosts = this.cachingService.get(cacheKey);
-
-    if(cachedPosts){
-      return of(cachedPosts);
-    }
-
-    return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
-      retry(3),
-      catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
-    );
+    return this.cachingService.get('posts').pipe(
+      switchMap(cachedData => {
+        if (cachedData) {
+          return of(cachedData);
+        }
+        return this.http.get<IPost[]>(`${this.apiUrl}/posts`).pipe(
+          retry(3),
+          catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
+        )
+      })
+    )
   }
 
   fetchPostById(postId: number): Observable<any>{
-    return this.http.get(`${this.apiUrl}/posts/${postId}`)
-    .pipe(
-      retry(3),
-      catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
-    );
+    return this.cachingService.get(`post-${postId}`).pipe(
+        switchMap(cachedData => {
+          if (cachedData) {
+            return of(cachedData);
+          }
+
+        return this.http.get(`${this.apiUrl}/posts/${postId}`)
+        .pipe(
+          retry(3),
+          catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
+        );
+      })
+    )
   }
 
   fetchComments( postId: number):Observable<IComment[]>{
