@@ -3,7 +3,7 @@ import { PostsPageComponent } from './views/posts-page/posts-page.component';
 
 export const routes: Routes = [
   {
-    path: 'post-detail-page/:id',
+    path: 'post-detail/:id',
     loadComponent: () =>
     import('./views/post-detail-page/post-detail-page.component')
     .then(m => m.PostDetailPageComponent)

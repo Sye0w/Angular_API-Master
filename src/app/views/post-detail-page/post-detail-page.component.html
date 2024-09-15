@@ -1,1 +1,12 @@
-<p>post-detail-page works!</p>
+<section>
+  <div>
+    @if(post$ | async; as post){
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.body }}</p>
+    } @else {
+      <div>
+        <p>Loading post details...</p>
+      </div>
+    }
+  </div>
+</section>

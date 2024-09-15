@@ -5,11 +5,12 @@ import { ApiFacadeService } from '../../model/services/api-facade.service';
 import { CommonModule } from '@angular/common';
 import { RevealOnScrollDirective } from '../../directives/revealon-scroll.directive';
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule, RevealOnScrollDirective, InfiniteScrollDirective],
+  imports: [CommonModule, RevealOnScrollDirective, InfiniteScrollDirective, RouterModule],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.scss',
 })

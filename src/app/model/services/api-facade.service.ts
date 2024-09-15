@@ -6,7 +6,6 @@ import { ApiClientService } from './api-client.service';
 @Injectable({
   providedIn: 'root'
 })
-
 export class ApiFacadeService {
   private postsSubject = new BehaviorSubject<IPost[]>([]);
   posts$ = this.postsSubject.asObservable();
@@ -24,6 +23,10 @@ export class ApiFacadeService {
         }
       })
     );
+  }
+
+  fetchPostById(postId: number): Observable<IPost> {
+    return this.apiService.fetchPostById(postId);
   }
 
   createPost(newPost: Partial<IPost>): Observable<IPost> {

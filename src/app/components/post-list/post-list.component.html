@@ -3,8 +3,10 @@
     @if(posts$ | async; as posts) {
       @for(post of posts; track post.id) {
         <li appRevealOnScroll>
-          <h1>{{ post.title }}</h1>
-          <p>{{ post.body }}</p>
+          <a [routerLink]="['/post-detail', post.id]">
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.body }}</p>
+          </a>
         </li>
       }
       <li appInfiniteScroll (scrolled)="loadMorePosts()"></li>
