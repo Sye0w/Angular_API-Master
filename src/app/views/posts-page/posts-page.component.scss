@@ -1,25 +1,40 @@
-@use '../../../styles/_variables' as *;
-
 
 section {
   display: flex;
-  header{
-    top: 0;
-    position: fixed ;
-    background-image: url('../../../assets/header-bg.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 7.75rem;
-    width: 100%;
-    z-index: 3;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin-top: 10rem;
+  justify-content: center;
 
-    h1{
-      text-align: center;
-      margin-top: 2.5rem;
-      // color: #fff;
-      font-size: 2.5rem;
-      font-family: $headerfont;
+  div{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    button {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      position: fixed;
+      right: 10%;
+      left: 85%;
+      border-style: none;
+      padding: 0.87rem;
+      height: 3rem;
+      width: 3rem;
+      align-self: flex-end;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      font-weight: 500;
+      background-color: #fff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+      font-size: 1.125rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5CA5A5;
+      color: #fff;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
     }
   }
+
 }
