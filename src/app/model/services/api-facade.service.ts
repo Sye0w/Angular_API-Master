@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, map, switchMap } from 'rxjs';
 import { IPost } from '../post.interface';
 import { ApiClientService } from './api-client.service';
+import { IComment } from '../comment.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,9 @@ export class ApiFacadeService {
         this.postsSubject.next(updatedPosts);
       })
     );
+  }
+
+  fetchCommentsByPostId(postId: number): Observable<IComment[]> {
+    return this.apiService.fetchComments(postId);
   }
 }

@@ -10,6 +10,24 @@
         <h1>{{ post.title }}</h1>
         <p>{{ post.body }}</p>
       </div>
+
+      <div class="comments-section">
+        <h2>Comments</h2>
+        @if(comments$ | async; as comments) {
+          <div class="comment-list">
+            @for(comment of comments; track comment.id) {
+              <div class="comment">
+                <h3>{{ comment.name }}</h3>
+                <p>{{ comment.body }}</p>
+                <small>{{ comment.email }}</small>
+              </div>
+            }
+          </div>
+        } @else {
+          <p>Loading comments...</p>
+        }
+      </div>
+
     } @else {
       <div>
         <p>Loading post details...</p>

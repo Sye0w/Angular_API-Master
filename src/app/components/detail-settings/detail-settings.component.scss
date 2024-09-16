@@ -10,13 +10,14 @@
     position: fixed;
     right: 10%;
     left: 85%;
-    top: 20%;
+    top: 16%;
     align-self: flex-end;
   }
 
   #edit-btn{
     @include button-styles(#fff, #000, $border-color, #fff); // Reusable button styling
     position: fixed;
+    top: 12%;
     right: 10%;
     left: 85%;
     align-self: flex-end;
