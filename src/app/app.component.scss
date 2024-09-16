@@ -14,7 +14,7 @@ body{
     background-repeat: no-repeat;
     height: 7.75rem;
     width: 100%;
-    z-index: 3;
+    z-index: 2;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
     h1{
@@ -29,6 +29,12 @@ body{
   main{
     margin-top: 10rem;
     justify-content: center;
-    
+
+  }
+}
+
+@media (max-width: 768px) {
+  h1{
+    font-size: 2.125rem !important;
   }
 }

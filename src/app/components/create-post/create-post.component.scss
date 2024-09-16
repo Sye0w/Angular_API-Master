@@ -7,6 +7,7 @@ button{
   position: fixed;
   right: 10%;
   left: 85%;
+  z-index: 3;
 
   &:hover {
     background-color: darken($border-color, 10%);

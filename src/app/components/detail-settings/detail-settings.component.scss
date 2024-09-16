@@ -10,7 +10,7 @@
     position: fixed;
     right: 10%;
     left: 85%;
-    top: 29%;
+    top: 20%;
     align-self: flex-end;
   }
 
@@ -42,6 +42,15 @@
       button {
         margin-left: 0.5rem;
       }
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .detail-settings{
+    #delete-btn{
+      top: 25%;
     }
   }
 }
