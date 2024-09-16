@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PostsPageComponent } from './posts-page.component';
-import { ApiFacadeService } from '../../model/services/api-facade.service';
-import { ApiClientService } from '../../model/services/api-client.service';
-import { ErrorHandlingService } from '../../model/services/error-handling.service';
-// import { CachingService } from '../../model/services/caching.service';
+import { PostListComponent } from '../../components/post-list/post-list.component';
+import { CreatePostComponent } from '../../components/create-post/create-post.component';
+import { By } from '@angular/platform-browser';
 
 describe('PostsPageComponent', () => {
   let component: PostsPageComponent;
@@ -12,14 +10,7 @@ describe('PostsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [PostsPageComponent],
-      providers: [
-        ApiFacadeService,
-        ApiClientService,
-        ErrorHandlingService,
-        // CachingService
-      ]
+      imports: [PostsPageComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PostsPageComponent);
@@ -27,7 +18,26 @@ describe('PostsPageComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should contain PostListComponent', () => {
+    const postListComponent = fixture.debugElement.query(By.directive(PostListComponent));
+    expect(postListComponent).toBeTruthy();
+  });
+
+  it('should contain CreatePostComponent', () => {
+    const createPostComponent = fixture.debugElement.query(By.directive(CreatePostComponent));
+    expect(createPostComponent).toBeTruthy();
+  });
+
+
+  it('should have CreatePostComponent before PostListComponent', () => {
+    const components = fixture.debugElement.queryAll(By.directive(PostListComponent) || By.directive(CreatePostComponent));
+    expect(components[0].componentInstance instanceof CreatePostComponent).toBeTruthy();
+    expect(components[1].componentInstance instanceof PostListComponent).toBeTruthy();
+  });
+
+
 });
