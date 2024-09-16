@@ -8,8 +8,8 @@ Angular API Master is a comprehensive Angular application that demonstrates prof
 
 - Interaction with JSONPlaceholder API for CRUD operations on posts and comments
 - Efficient error handling and user-friendly error messages
-- Mock authentication using HTTP interceptors
-- Inifinites scrolling to enhance user experience
+- Mock authentication using HTTP interceptors for debugging purpose as well
+- Inifinite scrolling to enhance user experience
 - Pagination for listing posts (optional)
 - Simple caching mechanism for optimizing API requests
 - Environment-specific configurations
@@ -22,9 +22,10 @@ Angular API Master is a comprehensive Angular application that demonstrates prof
 The project follows a modular structure with the following key directories:
 
 - `src/app/components`: Contains all the Angular components
-- `src/app/services`: Houses the API, error handling, and caching services
+- `src/app/model/services`: Houses the API, error handling, and caching services
 - `src/app/interceptors`: Contains the authentication interceptor
 - `src/environments`: Includes environment-specific configuration files
+- `src/app/directives`: Contains custom directives for lazy loading and inifinite scrolling
 
 ## Setup and Run Instructions
 
@@ -49,7 +50,7 @@ The project follows a modular structure with the following key directories:
 - `npm start`: Starts the development server
 - `npm run build`: Builds the project for production
 - `npm test`: Runs unit tests using Jest
-- `npm run e2e`: Runs end-to-end tests (requires additional setup)
+
 
 ## Environment Configuration
 
@@ -67,7 +68,7 @@ ng serve --configuration=production
 
 ## Testing
 
-Unit tests are written using Jasmine and Karma. Run the tests using:
+Unit tests are written using Jest. Run the tests using:
 
 ```
 npm  test
