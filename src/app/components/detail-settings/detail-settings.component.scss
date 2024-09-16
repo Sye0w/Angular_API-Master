@@ -26,6 +26,8 @@
 
 :host ::ng-deep {
   .p-dialog {
+    width: 40vw;
+
     .p-dialog-header {
       background-color: #FF6B6B;
       color: #ffffff;
@@ -53,4 +55,6 @@
       top: 25%;
     }
   }
+
+
 }

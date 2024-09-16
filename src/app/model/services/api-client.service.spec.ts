@@ -172,12 +172,5 @@ describe('ApiClientService', () => {
     });
   });
 
-  // describe('clearCache', () => {
-  //   it('should clear the cache', (done) => {
-  //     service.clearCache().subscribe(() => {
-  //       expect(cachingServiceMock.clear).toHaveBeenCalled();
-  //       done();
-  //     });
-  //   });
-  // });
+  
 });

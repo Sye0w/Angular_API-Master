@@ -4,6 +4,9 @@
 section{
   display: flex;
   justify-content: center;
+  a{
+    cursor: pointer;
+  }
 
   div{
     width: 65%;
@@ -28,7 +31,6 @@ section{
   section {
     div {
       width: 80%;
-      
     }
   }
 }
