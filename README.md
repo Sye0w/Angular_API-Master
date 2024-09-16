@@ -7,6 +7,7 @@ Angular API Master is a comprehensive Angular application that demonstrates prof
 ## Key Features
 
 - Interaction with JSONPlaceholder API for CRUD operations on posts and comments
+- RxJs for state management internally
 - Efficient error handling and user-friendly error messages
 - Mock authentication using HTTP interceptors for debugging purpose as well
 - Inifinite scrolling to enhance user experience
