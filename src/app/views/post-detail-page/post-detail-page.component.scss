@@ -26,18 +26,18 @@ section {
     }
 
     .comments-section {
-      // background-color: #f8f8f8;
       border-radius: .625rem;
-      padding: 1rem;
       width: 100%;
 
       .comment-list{
         overflow-y: scroll;
-        max-height: 40rem;
+        max-height: 24rem;
         padding-right: 1.25rem;
         margin-bottom: 3rem;
+        width: 100%;
+
         .comment {
-          width: 100%;
+          width: 30rem;
           background-color: #fff;
           border: 1px solid $border-color;
           border-radius: .5rem;
@@ -56,6 +56,29 @@ section {
             color: #666;
           }
         }
+
+        &::-webkit-scrollbar{
+          width: 12px;
+        }
+
+        &::-webkit-scrollbar-track{
+          background: transparent ;
+        }
+
+        &::-webkit-scrollbar-thumb{
+          background: rgba(0, 0, 0, 0.5);
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover{
+          background: rgba(0, 0, 0, 0.8);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+
+
       }
     }
   }
@@ -64,7 +87,16 @@ section {
 @media (max-width: 768px) {
   section {
     div {
-      width: 80%;
+      margin-inline: 1rem;
+      width: 95% !important;
+
+      .comments-section{
+        .comment-list{
+          overflow-x: hidden !important;
+
+          
+        }
+      }
     }
   }
 }

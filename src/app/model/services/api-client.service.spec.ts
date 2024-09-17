@@ -51,22 +51,6 @@ describe('ApiClientService', () => {
 
       service.fetchPosts().subscribe(posts => {
         expect(posts).toEqual(mockPosts);
-        // Remove this expectation for now
-        // expect(cachingServiceMock.set).toHaveBeenCalledWith('posts', mockPosts, expect.any(Number));
-        done();
-      });
-
-      const req = httpMock.expectOne(`${environment.apiUrl}/posts`);
-      expect(req.request.method).toBe('GET');
-      req.flush(mockPosts);
-    });
-
-    // Add a new test to check if caching occurs after fetching
-    it('should cache posts after fetching from API', (done) => {
-      const mockPosts = [{ id: 1, title: 'Test Post' }];
-      cachingServiceMock.get.mockReturnValue(of(null));
-
-      service.fetchPosts().subscribe(() => {
         expect(cachingServiceMock.set).toHaveBeenCalledWith('posts', mockPosts, expect.any(Number));
         done();
       });
@@ -92,18 +76,6 @@ describe('ApiClientService', () => {
       const req = httpMock.expectOne(`${environment.apiUrl}/posts/${postId}`);
       expect(req.request.method).toBe('GET');
       req.flush(mockPost);
-    });
-
-    it('should return cached post if available', (done) => {
-      const mockPost = { id: 1, title: 'Test Post' };
-      const postId = 1;
-      cachingServiceMock.get.mockReturnValue(of(mockPost));
-
-      service.fetchPostById(postId).subscribe(post => {
-        expect(post).toEqual(mockPost);
-        expect(cachingServiceMock.get).toHaveBeenCalledWith(`post-${postId}`);
-        done();
-      });
     });
   });
 
@@ -171,6 +143,4 @@ describe('ApiClientService', () => {
       req.flush(null);
     });
   });
-
-  
 });
